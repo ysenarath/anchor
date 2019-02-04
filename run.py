@@ -27,7 +27,7 @@ CONFIGS = {
     'home-page': 'https://www.google.com/',
     'sidebar': [
         {
-            'name': 'facebook-messenger',
+            'name': 'messenger',
             'url': 'https://www.messenger.com/',
         },
         {

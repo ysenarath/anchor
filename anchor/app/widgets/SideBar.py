@@ -26,16 +26,15 @@ class SideBar(QFrame):
 
     def onItemClicked(self, idx):
         def temp_func():
-            if self.browser_view.browser:
-                if self.browser_view.isVisible() and self.current == idx:
-                    self.browser_view.setVisible(False)
-                else:
-                    self.browser_view.setVisible(False)
+            if self.browser_view.width() != 0 and self.current == idx:
+                self.browser_view.setFixedWidth(0)
+            else:
+                if self.browser_view.browser:
                     if self.current != idx:
                         self.browser_view.browser.LoadUrl(self.buttons[idx]['url'])
                         self.current = idx
-                    self.browser_view.setVisible(True)
-            else:
-                pass
+                else:
+                    pass
+                self.browser_view.setFixedWidth(600)
 
         return temp_func

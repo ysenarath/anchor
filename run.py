@@ -3,6 +3,7 @@
 
 from anchor import Anchor
 
+# noinspection SpellCheckingInspection
 SETTINGS = {
     # "debug": True,
     # "log_severity": cef.LOGSEVERITY_INFO,
@@ -21,8 +22,8 @@ SWITCHES = {
 
 CONFIGS = {
     'title': 'Anchor',
-    'height': 400,
-    'width': 300,
+    'height': 800,
+    'width': 600,
     'home-page': 'https://www.google.com/',
     'sidebar': [
         {

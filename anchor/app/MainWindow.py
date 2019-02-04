@@ -27,7 +27,6 @@ class MainWindow(QMainWindow):
         load_handler = LoadHandler(self.app, self)
         self.browser_view = CefBrowserView(self.app, parent=self, load_handler=load_handler)
         self.sidebar_view = CefBrowserView(self.app, parent=self)
-        self.sidebar_view.setMinimumWidth(800)
         self.navigation_bar = NavigationBar(self.app, self.browser_view)
         self.side_bar = SideBar(self.app, self.sidebar_view)
         row_0_cols = QHBoxLayout()
@@ -35,7 +34,6 @@ class MainWindow(QMainWindow):
         row_0_cols.addWidget(self.sidebar_view, 1)
         row_0_cols.addWidget(self.browser_view, 2)
         row_0_cols.setSpacing(0)
-        self.sidebar_view.setVisible(False)
         rows = QVBoxLayout()
         rows.addWidget(self.navigation_bar, 0)
         rows.addLayout(row_0_cols, 1)
@@ -57,6 +55,7 @@ class MainWindow(QMainWindow):
             row_0_cols.addWidget(main_container, 2)
             sidebar_container = QWidget.createWindowContainer(self.sidebar_view.hidden_window, parent=self)
             row_0_cols.addWidget(sidebar_container, 2)
+        self.sidebar_view.setFixedWidth(0)
 
     def closeEvent(self, event):
         if self.browser_view.browser:

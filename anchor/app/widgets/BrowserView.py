@@ -47,6 +47,7 @@ class CefBrowserView(QWidget):
         self.browser.SetClientHandler(self.load_handler)
         self.browser.SetClientHandler(self.focus_handler)
 
+    # noinspection SpellCheckingInspection,PyBroadException,PyPep8
     def getHandle(self):
         if self.hidden_window:
             # PyQt5 on Linux
@@ -61,9 +62,9 @@ class CefBrowserView(QWidget):
             if sys.version_info[0] == 2:
                 # Python 2
                 ctypes.pythonapi.PyCObject_AsVoidPtr.restype = (
-                    ctypes.c_void_p)
-                ctypes.pythonapi.PyCObject_AsVoidPtr.argtypes = (
-                    [ctypes.py_object])
+                    ctypes.c_void_p
+                )
+                ctypes.pythonapi.PyCObject_AsVoidPtr.argtypes = ([ctypes.py_object])
                 return ctypes.pythonapi.PyCObject_AsVoidPtr(self.winId())
             else:
                 # Python 3
@@ -71,9 +72,9 @@ class CefBrowserView(QWidget):
                     ctypes.c_void_p)
                 ctypes.pythonapi.PyCapsule_GetPointer.argtypes = (
                     [ctypes.py_object])
-                return ctypes.pythonapi.PyCapsule_GetPointer(
-                    self.winId(), None)
+                return ctypes.pythonapi.PyCapsule_GetPointer(self.winId(), None)
 
+    # noinspection PyAttributeOutsideInit
     def moveEvent(self, _):
         self.x = 0
         self.y = 0
@@ -86,10 +87,10 @@ class CefBrowserView(QWidget):
 
     def resizeEvent(self, event):
         size = event.size()
+        if self.app.platform == 'WINDOWS':
+            self.app.window_utils_.OnSize(self.getHandle(), 0, 0, 0)
+        elif self.app.platform == 'LINUX':
+            if self.browser:
+                self.browser.SetBounds(self.x, self.y, size.width(), size.height())
         if self.browser:
-            if self.app.platform == 'WINDOWS':
-                self.app.window_utils_.OnSize(self.getHandle(), 0, 0, 0)
-            elif self.app.platform == 'LINUX':
-                self.browser.SetBounds(self.x, self.y,
-                                       size.width(), size.height())
             self.browser.NotifyMoveOrResizeStarted()
